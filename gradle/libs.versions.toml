@@ -22,6 +22,7 @@ fragment = "1.8.5"
 serialization = "1.6.0"
 retrofit2-kotlinx-serialization-converter = "0.8.0"
 photo-view = "2.3.0"
+view-pager2 = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -55,6 +56,7 @@ retrofit2-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit"
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 fragment = {module = "androidx.fragment:fragment-ktx", version.ref = "fragment"}
 phto-view = {module = "com.github.chrisbanes:PhotoView", version.ref = "photo-view"}
+view-pager2 = {module = "androidx.viewpager2:viewpager2", version.ref = "view-pager2"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

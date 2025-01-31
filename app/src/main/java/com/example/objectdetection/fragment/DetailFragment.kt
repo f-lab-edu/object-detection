@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +22,15 @@ import java.io.File
 
 class DetailFragment : Fragment() {
     companion object {
-        const val PHOTO_URL = "photoUrl"
-        const val PHOTO_NAME = "photoName"
+        private const val PHOTO_URL = "photoUrl"
+        private const val PHOTO_NAME = "photoName"
+
+        fun newInstance(photoUrl: String?, photoName: String?) = DetailFragment().apply {
+            arguments = Bundle().apply {
+                putString(PHOTO_URL, photoUrl)
+                putString(PHOTO_NAME, photoName)
+            }
+        }
     }
 
     private var photoUrl: String? = null

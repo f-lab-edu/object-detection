@@ -9,7 +9,7 @@ import com.example.objectdetection.databinding.ItemRecyclerBinding
 
 class ImageListAdapter(
     private var imageList: List<Photo>,
-    private val onItemClick: (Photo) -> Unit
+    private val onItemClick: (List<Photo>, Int) -> Unit
 ) : RecyclerView.Adapter<ImageListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -22,7 +22,7 @@ class ImageListAdapter(
         val item = imageList[position]
         holder.bind(item)
         holder.binding.root.setOnClickListener {
-            onItemClick(item)
+            onItemClick(imageList, position)
         }
     }
 

@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.phto.view)
+    implementation(libs.view.pager2)
     ksp(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

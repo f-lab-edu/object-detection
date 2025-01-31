@@ -6,14 +6,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.objectdetection.ImageListAdapter
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.R
 import com.example.objectdetection.databinding.ActivityMainBinding
-import com.example.objectdetection.fragment.DetailFragment
+import com.example.objectdetection.fragment.DetailViewPagerFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,13 +30,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initSearchView()
 
-        adapter = ImageListAdapter(emptyList()) { selectedImage ->
-            val fragment = DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(DetailFragment.PHOTO_URL, selectedImage.urls?.small)
-                    putString(DetailFragment.PHOTO_NAME, selectedImage.description)
-                }
-            }
+        adapter = ImageListAdapter(emptyList()) { photoList, position ->
+            val fragment = DetailViewPagerFragment.newInstance(photoList, position)
             setFragment(fragment)
         }
         binding.rvImage.adapter = adapter
