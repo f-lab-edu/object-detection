@@ -28,6 +28,17 @@
             android:visibility="@{isMain? View.VISIBLE : View.GONE}" />
 
         <ImageView
+            android:id="@+id/ivObjectDetection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ripple_item"
+            android:src="@drawable/ic_object_detection"
+            android:visibility="@{isMain ? View.GONE : View.VISIBLE}"
+            tools:visibility="visible" />
+
+        <ImageView
             android:id="@+id/ivList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
