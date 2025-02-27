@@ -29,6 +29,7 @@ mockk = "1.13.5"
 arch = "2.1.0"
 truth = "1.1.3"
 mockWebServer = "4.9.3"
+tensorflow = "0.4.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +71,8 @@ phto-view = { module = "com.github.chrisbanes:PhotoView", version.ref = "photo-v
 view-pager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "view-pager2" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
+tensorflow-vision = { module = "org.tensorflow:tensorflow-lite-task-vision", version.ref = "tensorflow" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
