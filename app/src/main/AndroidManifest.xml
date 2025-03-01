@@ -43,6 +43,7 @@
                 android:resource="@xml/file_paths" />
 
         </provider>
+        <profileable android:shell="true" />
     </application>
 
 </manifest>
