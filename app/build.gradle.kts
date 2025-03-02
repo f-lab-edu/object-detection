@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.phto.view)
     implementation(libs.view.pager2)
     implementation(libs.dagger.hilt)
+    implementation(libs.tensorflow.vision)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.glide.compiler)
     testImplementation(libs.junit)
