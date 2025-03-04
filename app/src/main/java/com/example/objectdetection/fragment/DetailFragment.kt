@@ -51,6 +51,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var context: Context
+    private lateinit var objectDetector: ObjectDetector
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,12 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val options = ObjectDetectorOptions.builder()
+            .setMaxResults(MAX_RESULT)
+            .setScoreThreshold(CONFIDENCE_THRESHOLD)
+            .build()
+        objectDetector = ObjectDetector.createFromFileAndOptions(context, MODEL_PATH, options)
 
         Glide.with(this)
             .asBitmap()
@@ -138,12 +145,6 @@ class DetailFragment : Fragment() {
     }
 
     private fun objectDetection(image: Bitmap): List<Detection> {
-        val options = ObjectDetectorOptions.builder()
-            .setMaxResults(MAX_RESULT)
-            .setScoreThreshold(CONFIDENCE_THRESHOLD)
-            .build()
-        val objectDetector = ObjectDetector.createFromFileAndOptions(context, MODEL_PATH, options)
-
         val tensorImage = TensorImage.fromBitmap(image)
         return objectDetector.detect(tensorImage)
     }
