@@ -4,4 +4,6 @@
     <string name="share_image">share image</string>
     <string name="toast_image_saved">Image successfully saved</string>
     <string name="toast_fail_image_saved">Failed to save the image</string>
+    <string name="button_xml_activity">Go to XML Activity</string>
+    <string name="button_compose_activity">Go to Compose Activity</string>
 </resources>
