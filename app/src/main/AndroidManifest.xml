@@ -32,7 +32,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.MainComposeActivity" />
+        <activity
+            android:name=".activity.MainComposeActivity"
+            android:theme="@style/Theme.Compose" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
