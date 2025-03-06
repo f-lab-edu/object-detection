@@ -23,15 +23,16 @@
         android:theme="@style/Theme.ObjectDetection"
         tools:targetApi="31">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LauncherActivity"
             android:exported="true"
             android:theme="@style/Theme.ObjectDetection">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainComposeActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
