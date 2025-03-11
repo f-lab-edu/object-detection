@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.objectdetection.DetailViewPagerAdapter
-import com.example.objectdetection.data.Photo
+import com.example.objectdetection.data.PhotoUI
 import com.example.objectdetection.databinding.FragmentDetailViewPagerBinding
 
 class DetailViewPagerFragment : Fragment() {
@@ -15,7 +15,7 @@ class DetailViewPagerFragment : Fragment() {
         const val PHOTO_LIST = "photoList"
         const val START_POSITION = "startPosition"
 
-        fun newInstance(photoList: List<Photo>, startPosition: Int) = DetailViewPagerFragment().apply {
+        fun newInstance(photoList: List<PhotoUI>, startPosition: Int) = DetailViewPagerFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(PHOTO_LIST, ArrayList(photoList))
                 putInt(START_POSITION, startPosition)
@@ -25,17 +25,17 @@ class DetailViewPagerFragment : Fragment() {
 
     private var _binding: FragmentDetailViewPagerBinding? = null
     private val binding get() = _binding!!
-    private var photoList: List<Photo> = emptyList()
+    private var photoList: List<PhotoUI> = emptyList()
     private var startPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             photoList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getSerializable(PHOTO_LIST, ArrayList::class.java) as? ArrayList<Photo> ?: arrayListOf()
+                arguments?.getSerializable(PHOTO_LIST, ArrayList::class.java) as? ArrayList<PhotoUI> ?: arrayListOf()
             } else {
                 @Suppress("DEPRECATION")
-                arguments?.getSerializable(PHOTO_LIST) as? ArrayList<Photo> ?: arrayListOf()
+                arguments?.getSerializable(PHOTO_LIST) as? ArrayList<PhotoUI> ?: arrayListOf()
             }
             startPosition = it.getInt(START_POSITION, 0)
         }

@@ -53,7 +53,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.R
-import com.example.objectdetection.data.Photo
+import com.example.objectdetection.data.PhotoUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -176,7 +176,7 @@ fun SearchBar(
 }
 
 @Composable
-fun ImageItem(photo: Photo) {
+fun ImageItem(photo: PhotoUI) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -193,8 +193,8 @@ fun ImageItem(photo: Photo) {
             contentAlignment = Alignment.Center
         ) {
             AsyncImage(
-                model = photo.urls?.small ?: "",
-                contentDescription = "Image",
+                model = photo.imageUrl,
+                contentDescription = photo.description,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )

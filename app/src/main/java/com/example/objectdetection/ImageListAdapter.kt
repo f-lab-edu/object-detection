@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.objectdetection.data.Photo
+import com.example.objectdetection.data.PhotoUI
 import com.example.objectdetection.databinding.ItemRecyclerBinding
 
 class ImageListAdapter(
-    private var imageList: List<Photo>,
-    private val onItemClick: (List<Photo>, Int) -> Unit
+    private var imageList: List<PhotoUI>,
+    private val onItemClick: (List<PhotoUI>, Int) -> Unit
 ) : RecyclerView.Adapter<ImageListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -26,7 +26,7 @@ class ImageListAdapter(
         }
     }
 
-    fun updateData(newList: List<Photo>) {
+    fun updateData(newList: List<PhotoUI>) {
         imageList = newList
         notifyDataSetChanged()
     }
@@ -36,9 +36,9 @@ class ImageListAdapter(
     }
 
     class Holder(val binding: ItemRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo) {
+        fun bind(photo: PhotoUI) {
             Glide.with(binding.root.context)
-                .load(photo.urls?.small ?: "")
+                .load(photo.imageUrl)
                 .into(binding.image)
         }
     }
