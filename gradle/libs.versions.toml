@@ -32,6 +32,7 @@ mockWebServer = "4.9.3"
 tensorflow = "0.4.4"
 runtimeLivedata = "1.7.8"
 coil = "2.6.0"
+hiltCompose = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,7 +47,8 @@ mock-web-server = { module = "com.squareup.okhttp3:mockwebserver", version.ref =
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-coil-compose = {module = "io.coil-kt:coil-compose", version.ref = "coil"}
+androidx-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompose" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
