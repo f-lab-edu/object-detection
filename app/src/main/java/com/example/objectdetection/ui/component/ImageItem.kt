@@ -37,7 +37,7 @@ fun ImageItem(photo: PhotoUI) {
         ) {
             AsyncImage(
                 model = photo.imageUrl,
-                contentDescription = photo.description,
+                contentDescription = photo.photoName,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )

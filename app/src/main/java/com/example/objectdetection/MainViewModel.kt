@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val result = unsplashRepository.searchPhotos(query)
-                _photos.value = result.map { it.toUIModel() }
+                _photos.value = result.map { it.toUIModel(query) }
             } catch (exception: Exception) {
                 _apiError.value = exception.message
             }
