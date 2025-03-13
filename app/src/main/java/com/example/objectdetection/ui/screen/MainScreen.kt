@@ -37,7 +37,11 @@ fun MainScreen(navController: NavHostController) {
         val photos by viewModel.photos.observeAsState(emptyList())
 
         TopBar(isSelected = isSelected,
-            onToggleLayout = { isSelected = !isSelected })
+            isMain = true,
+            onToggleLayout = { isSelected = !isSelected },
+            onSaveImage = {},
+            onShareImage = {},
+            onObjectDetection = {})
 
         SearchBar(
             searchQuery = searchText,
