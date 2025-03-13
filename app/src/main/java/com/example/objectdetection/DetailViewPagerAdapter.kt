@@ -12,6 +12,6 @@ class DetailViewPagerAdapter(
     override fun getItemCount(): Int = photoList.size
 
     override fun createFragment(position: Int): Fragment {
-        return DetailFragment.newInstance(photoList[position].imageUrl, photoList[position].description)
+        return DetailFragment.newInstance(photoList[position].imageUrl, photoList[position].photoName)
     }
 }

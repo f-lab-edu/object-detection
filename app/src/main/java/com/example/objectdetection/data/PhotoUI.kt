@@ -3,13 +3,13 @@ package com.example.objectdetection.data
 data class PhotoUI(
     val id: String,
     val imageUrl: String,
-    val description: String?
+    val photoName: String
 )
 
-fun Photo.toUIModel(): PhotoUI {
+fun Photo.toUIModel(query: String): PhotoUI {
     return PhotoUI(
         id = this.id,
         imageUrl = this.urls?.small ?: "",
-        description = this.description ?: "unknown"
+        photoName = query
     )
 }
