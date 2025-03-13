@@ -4,11 +4,17 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.serialization)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.example.objectdetection"
     compileSdk = 35
+
+    packaging {
+        resources.excludes.add("META-INF/LICENSE.md")
+        resources.excludes.add("META-INF/LICENSE-notice.md")
+    }
 
     defaultConfig {
         applicationId = "com.example.objectdetection"
@@ -68,6 +74,8 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.hilt.compose)
+    implementation(libs.coil.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -90,6 +98,7 @@ dependencies {
     implementation(libs.view.pager2)
     implementation(libs.dagger.hilt)
     implementation(libs.tensorflow.vision)
+    implementation(libs.androidx.runtime.livedata)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.glide.compiler)
     testImplementation(libs.junit)
