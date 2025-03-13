@@ -20,13 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.ui.component.ImageItem
 import com.example.objectdetection.ui.component.SearchBar
 import com.example.objectdetection.ui.component.TopBar
 
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
     Column(
         modifier = Modifier.background(Color.White)
     ) {
@@ -53,7 +54,7 @@ fun MainScreen() {
                 modifier = Modifier.fillMaxHeight()
             ) {
                 items(photos.orEmpty()) { photo ->
-                    ImageItem(photo)
+                    ImageItem(photo, navController)
                 }
             }
         } else {
@@ -61,7 +62,7 @@ fun MainScreen() {
                 modifier = Modifier.fillMaxHeight()
             ) {
                 items(photos.orEmpty()) { photo ->
-                    ImageItem(photo)
+                    ImageItem(photo, navController)
                 }
             }
         }
