@@ -25,7 +25,7 @@ fun ImageItem(photo: PhotoUI, onItemClick: () -> Unit) {
             .background(Color.White)
             .padding(8.dp)
             .height(200.dp)
-            .clickable { onItemClick() },
+            .clickable(onClick = onItemClick),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {

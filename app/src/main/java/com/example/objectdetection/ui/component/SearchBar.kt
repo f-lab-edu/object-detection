@@ -35,7 +35,7 @@ fun SearchBar(
                     IconButton(onClick = onClearSearch) {
                         Icon(imageVector = Icons.Default.Clear, contentDescription = "Clear")
                     }
-                    IconButton(onClick = { onSearchSubmit() }) {
+                    IconButton(onClick = onSearchSubmit) {
                         Icon(imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "Enter")
                     }
                 }
