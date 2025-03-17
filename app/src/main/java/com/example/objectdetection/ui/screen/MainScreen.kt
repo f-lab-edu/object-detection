@@ -1,5 +1,6 @@
 package com.example.objectdetection.ui.screen
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -58,7 +59,10 @@ fun MainScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxHeight()
             ) {
                 items(photos.orEmpty()) { photo ->
-                    ImageItem(photo, navController)
+                    ImageItem(photo = photo, onItemClick = {
+                        val encodedUrl = Uri.encode(photo.imageUrl)
+                        navController.navigate("detail_screen/${encodedUrl}/${photo.photoName}")
+                    })
                 }
             }
         } else {
@@ -66,7 +70,10 @@ fun MainScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxHeight()
             ) {
                 items(photos.orEmpty()) { photo ->
-                    ImageItem(photo, navController)
+                    ImageItem(photo = photo, onItemClick = {
+                        val encodedUrl = Uri.encode(photo.imageUrl)
+                        navController.navigate("detail_screen/${encodedUrl}/${photo.photoName}")
+                    })
                 }
             }
         }
