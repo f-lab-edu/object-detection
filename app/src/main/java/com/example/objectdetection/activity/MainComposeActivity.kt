@@ -1,6 +1,5 @@
 package com.example.objectdetection.activity
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,16 +23,8 @@ class MainComposeActivity : ComponentActivity() {
                 composable("main_screen") {
                     MainScreen(navController)
                 }
-                composable("detail_screen/{photoUrl}/{photoName}") { backStackEntry ->
-                    val encodeUrl = backStackEntry.arguments?.getString("photoUrl")
-                    val photoName = backStackEntry.arguments?.getString("photoName")
-
-                    encodeUrl?.let { url ->
-                        photoName?.let { name ->
-                            val decodedUrl = Uri.decode(url)
-                            DetailScreen(decodedUrl, name)
-                        }
-                    }
+                composable("detail_screen") {
+                    DetailScreen(navController)
                 }
             }
         }

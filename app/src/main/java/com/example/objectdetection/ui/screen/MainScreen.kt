@@ -1,6 +1,5 @@
 package com.example.objectdetection.ui.screen
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,8 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -58,10 +57,12 @@ fun MainScreen(navController: NavHostController) {
                 GridCells.Fixed(2),
                 modifier = Modifier.fillMaxHeight()
             ) {
-                items(photos.orEmpty()) { photo ->
+                itemsIndexed(photos.orEmpty()) { index, photo ->
                     ImageItem(photo = photo, onItemClick = {
-                        val encodedUrl = Uri.encode(photo.imageUrl)
-                        navController.navigate("detail_screen/${encodedUrl}/${photo.photoName}")
+                        navController.currentBackStackEntry?.savedStateHandle?.set("selectedIndex", index)
+                        navController.currentBackStackEntry?.savedStateHandle?.set("photos", photos)
+                        navController.currentBackStackEntry?.savedStateHandle?.set("photoName", photo.photoName)
+                        navController.navigate("detail_screen")
                     })
                 }
             }
@@ -69,10 +70,12 @@ fun MainScreen(navController: NavHostController) {
             LazyColumn(
                 modifier = Modifier.fillMaxHeight()
             ) {
-                items(photos.orEmpty()) { photo ->
+                itemsIndexed(photos.orEmpty()) { index, photo ->
                     ImageItem(photo = photo, onItemClick = {
-                        val encodedUrl = Uri.encode(photo.imageUrl)
-                        navController.navigate("detail_screen/${encodedUrl}/${photo.photoName}")
+                        navController.currentBackStackEntry?.savedStateHandle?.set("selectedIndex", index)
+                        navController.currentBackStackEntry?.savedStateHandle?.set("photos", photos)
+                        navController.currentBackStackEntry?.savedStateHandle?.set("photoName", photo.photoName)
+                        navController.navigate("detail_screen")
                     })
                 }
             }
