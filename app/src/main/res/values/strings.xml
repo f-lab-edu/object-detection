@@ -6,4 +6,8 @@
     <string name="toast_fail_image_saved">Failed to save the image</string>
     <string name="button_xml_activity">Go to XML Activity</string>
     <string name="button_compose_activity">Go to Compose Activity</string>
+    <string name="version_update_dialog_title">업데이트 필요</string>
+    <string name="version_update_dialog_sub_message">최신 버전으로 업데이트해야 합니다.</string>
+    <string name="version_update_dialog_positive">Go to Application</string>
+    <string name="version_update_dialog_negative">Cancel</string>
 </resources>

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.R
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_OBJECT_DETECTION
 import com.example.objectdetection.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,14 +25,16 @@ class DetailFragment : Fragment() {
         private const val PHOTO_URL = "photoUrl"
         private const val PHOTO_NAME = "photoName"
 
-        fun newInstance(photoUrl: String?, photoName: String?) = DetailFragment().apply {
+        fun newInstance(photoUrl: String?, photoName: String?, isObjectDetection: Boolean) = DetailFragment().apply {
             arguments = Bundle().apply {
                 putString(PHOTO_URL, photoUrl)
                 putString(PHOTO_NAME, photoName)
+                putBoolean(IS_OBJECT_DETECTION, isObjectDetection)
             }
         }
     }
 
+    private var isObjectDetection = false
     private var photoUrl: String? = null
     private var photoName: String? = null
     private var imgBitmap: Bitmap? = null
@@ -46,6 +49,7 @@ class DetailFragment : Fragment() {
         arguments?.let {
             photoUrl = it.getString(PHOTO_URL) ?: getString(R.string.unknown)
             photoName = it.getString(PHOTO_NAME) ?: getString(R.string.unknown)
+            isObjectDetection = it.getBoolean(IS_OBJECT_DETECTION, false)
         }
     }
 
@@ -78,6 +82,7 @@ class DetailFragment : Fragment() {
                     override fun onLoadCleared(placeholder: Drawable?) {}
                 })
 
+        binding.toolbar.isObjectDetection = isObjectDetection
         binding.toolbar.ivShare.setOnClickListener {
             imgBitmap?.let { image ->
                 viewModel.imageShare(requireContext(), image, photoName!!)

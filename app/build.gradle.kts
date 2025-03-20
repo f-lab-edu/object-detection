@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -99,6 +100,9 @@ dependencies {
     implementation(libs.dagger.hilt)
     implementation(libs.tensorflow.vision)
     implementation(libs.androidx.runtime.livedata)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.config)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.glide.compiler)
     testImplementation(libs.junit)
