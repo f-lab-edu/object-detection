@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,12 +26,20 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    private var isUpdateDialog = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         initSearchView()
+
+        isUpdateDialog = intent.getBooleanExtra("isUpdateDialog", false)
+
+        if (isUpdateDialog) {
+            showUpdateDialog()
+        }
 
         adapter = ImageListAdapter(emptyList()) { photoList, position ->
             val fragment = DetailViewPagerFragment.newInstance(photoList, position)
@@ -88,6 +97,24 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+    private fun showUpdateDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.version_update_dialog_title)
+        builder.setMessage(R.string.version_update_dialog_sub_message)
+
+        builder.setPositiveButton(R.string.version_update_dialog_positive) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton(R.string.version_update_dialog_negative) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     override fun onResume() {
         super.onResume()

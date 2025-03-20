@@ -28,20 +28,22 @@ class LauncherActivity : ComponentActivity() {
         remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val isCompose = remoteConfig.getBoolean("show_compose")
-                showScreen(isCompose)
+                val isUpdateDialog = remoteConfig.getBoolean("version_update")
+                showScreen(isCompose, isUpdateDialog)
             } else {
                 Log.e("LauncherActivity", "Remote Config fetch failed", task.exception)
-                showScreen(false)
+                showScreen(isCompose = false, isUpdateDialog = false)
             }
         }
     }
 
-    private fun showScreen(isCompose: Boolean) {
+    private fun showScreen(isCompose: Boolean, isUpdateDialog: Boolean) {
         val intent = if (isCompose) {
             Intent(this, MainComposeActivity::class.java)
         } else {
             Intent(this, MainActivity::class.java)
         }
+        intent.putExtra("isUpdateDialog", isUpdateDialog)
         startActivity(intent)
         finish()
     }
