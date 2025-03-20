@@ -36,7 +36,7 @@ import com.example.objectdetection.ui.component.TopBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DetailScreen(navController: NavHostController) {
+fun DetailScreen(navController: NavHostController, isObjectDetection: Boolean) {
     val context = LocalContext.current
     val viewModel: MainViewModel = hiltViewModel()
     val imageLoader = remember { ImageLoader(context) }
@@ -91,6 +91,7 @@ fun DetailScreen(navController: NavHostController) {
         TopBar(
             isSelected = false,
             isMain = false,
+            isObjectDetection = isObjectDetection,
             onToggleLayout = {},
             onSaveImage = { bitmaps[pagerState.currentPage]?.let { viewModel.saveImageToGallery(context, it, photoName) } },
             onShareImage = { bitmaps[pagerState.currentPage]?.let { viewModel.imageShare(context, it, photoName) } },

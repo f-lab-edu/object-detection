@@ -10,6 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_OBJECT_DETECTION
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_UPDATE_DIALOG
 import com.example.objectdetection.ui.component.UpdateDialog
 import com.example.objectdetection.ui.screen.DetailScreen
 import com.example.objectdetection.ui.screen.MainScreen
@@ -20,7 +22,8 @@ class MainComposeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val isUpdateDialog = intent.getBooleanExtra("isUpdateDialog", false)
+        val isObjectDetection = intent.getBooleanExtra(IS_OBJECT_DETECTION, false)
+        val isUpdateDialog = intent.getBooleanExtra(IS_UPDATE_DIALOG, false)
 
         setContent {
             val navController = rememberNavController()
@@ -35,7 +38,7 @@ class MainComposeActivity : ComponentActivity() {
 
             NavHost(navController = navController, startDestination = "main_screen") {
                 composable("main_screen") { MainScreen(navController) }
-                composable("detail_screen") { DetailScreen(navController) }
+                composable("detail_screen") { DetailScreen(navController, isObjectDetection) }
             }
         }
     }

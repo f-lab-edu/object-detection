@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.objectdetection.ImageListAdapter
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.R
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_OBJECT_DETECTION
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_UPDATE_DIALOG
 import com.example.objectdetection.databinding.ActivityMainBinding
 import com.example.objectdetection.fragment.DetailViewPagerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    private var isObjectDetection = false
     private var isUpdateDialog = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +38,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initSearchView()
 
-        isUpdateDialog = intent.getBooleanExtra("isUpdateDialog", false)
+        isObjectDetection = intent.getBooleanExtra(IS_OBJECT_DETECTION, false)
+        isUpdateDialog = intent.getBooleanExtra(IS_UPDATE_DIALOG, false)
 
         if (isUpdateDialog) {
             showUpdateDialog()
         }
 
         adapter = ImageListAdapter(emptyList()) { photoList, position ->
-            val fragment = DetailViewPagerFragment.newInstance(photoList, position)
+            val fragment = DetailViewPagerFragment.newInstance(photoList, position, isObjectDetection)
             setFragment(fragment)
         }
         binding.rvImage.adapter = adapter
