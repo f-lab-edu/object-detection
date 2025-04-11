@@ -5,40 +5,28 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import com.google.firebase.Firebase
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.remoteConfig
-import com.google.firebase.remoteconfig.remoteConfigSettings
+import androidx.activity.viewModels
+import com.example.objectdetection.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
     companion object {
         const val IS_OBJECT_DETECTION = "isObjectDetection"
         const val IS_UPDATE_DIALOG = "isUpdateDialog"
     }
 
-    private lateinit var remoteConfig: FirebaseRemoteConfig
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.fetchRemoteConfig()
 
-        remoteConfig = Firebase.remoteConfig
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600
-        }
-        remoteConfig.setConfigSettingsAsync(configSettings)
-
-        fetchRemoteConfig()
-    }
-
-    private fun fetchRemoteConfig() {
-        remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                val isCompose = remoteConfig.getBoolean("show_compose")
-                val isUpdateDialog = remoteConfig.getBoolean("version_update")
-                val minOsVersion = remoteConfig.getLong("object_detection_min_os_version")
-                showScreen(isCompose, isUpdateDialog, minOsVersion)
-            } else {
-                Log.e("LauncherActivity", "Remote Config fetch failed", task.exception)
+        viewModel.remoteConfigState.observe(this) { result ->
+            result?.onSuccess {
+                showScreen(it.isCompose, it.isUpdateDialog, it.minOsVersion)
+            }?.onFailure {
+                Log.e("LauncherActivity", "Remote Config fetch failed", it)
                 showScreen(isCompose = false, isUpdateDialog = false, minOsVersion = 0)
             }
         }
