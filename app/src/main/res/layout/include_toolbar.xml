@@ -9,6 +9,10 @@
             name="isMain"
             type="Boolean" />
 
+        <variable
+            name="isObjectDetection"
+            type="Boolean" />
+
     </data>
 
     <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +39,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/ripple_item"
             android:src="@drawable/ic_object_detection"
-            android:visibility="@{isMain ? View.GONE : View.VISIBLE}"
+            android:visibility="@{isMain || !isObjectDetection ? View.GONE : View.VISIBLE}"
             tools:visibility="visible" />
 
         <ImageView

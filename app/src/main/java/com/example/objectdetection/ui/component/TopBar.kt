@@ -19,6 +19,7 @@ import com.example.objectdetection.R
 fun TopBar(
     isSelected: Boolean,
     isMain: Boolean,
+    isObjectDetection: Boolean = false,
     onToggleLayout: () -> Unit,
     onSaveImage: () -> Unit,
     onShareImage: () -> Unit,
@@ -62,11 +63,13 @@ fun TopBar(
                         contentDescription = "Image share"
                     )
                 }
-                IconButton(onClick = onObjectDetection) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_object_detection),
-                        contentDescription = "Object detection"
-                    )
+                if (isObjectDetection) {
+                    IconButton(onClick = onObjectDetection) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_object_detection),
+                            contentDescription = "Object detection"
+                        )
+                    }
                 }
             }
         }

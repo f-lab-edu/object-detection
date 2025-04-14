@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.objectdetection.ImageListAdapter
 import com.example.objectdetection.MainViewModel
 import com.example.objectdetection.R
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_OBJECT_DETECTION
+import com.example.objectdetection.activity.LauncherActivity.Companion.IS_UPDATE_DIALOG
 import com.example.objectdetection.databinding.ActivityMainBinding
 import com.example.objectdetection.fragment.DetailViewPagerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    private var isObjectDetection = false
+    private var isUpdateDialog = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,8 +38,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initSearchView()
 
+        isObjectDetection = intent.getBooleanExtra(IS_OBJECT_DETECTION, false)
+        isUpdateDialog = intent.getBooleanExtra(IS_UPDATE_DIALOG, false)
+
+        if (isUpdateDialog) {
+            showUpdateDialog()
+        }
+
         adapter = ImageListAdapter(emptyList()) { photoList, position ->
-            val fragment = DetailViewPagerFragment.newInstance(photoList, position)
+            val fragment = DetailViewPagerFragment.newInstance(photoList, position, isObjectDetection)
             setFragment(fragment)
         }
         binding.rvImage.adapter = adapter
@@ -88,6 +101,24 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+    private fun showUpdateDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.version_update_dialog_title)
+        builder.setMessage(R.string.version_update_dialog_sub_message)
+
+        builder.setPositiveButton(R.string.version_update_dialog_positive) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton(R.string.version_update_dialog_negative) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     override fun onResume() {
         super.onResume()

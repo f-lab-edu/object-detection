@@ -1,51 +1,48 @@
 package com.example.objectdetection.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import com.example.objectdetection.R
+import androidx.activity.viewModels
+import com.example.objectdetection.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LauncherActivity : ComponentActivity() {
+    companion object {
+        const val IS_OBJECT_DETECTION = "isObjectDetection"
+        const val IS_UPDATE_DIALOG = "isUpdateDialog"
+    }
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.fetchRemoteConfig()
 
-        setContent {
-            LauncherScreen()
+        viewModel.remoteConfigState.observe(this) { result ->
+            result?.onSuccess {
+                showScreen(it.isCompose, it.isUpdateDialog, it.minOsVersion)
+            }?.onFailure {
+                Log.e("LauncherActivity", "Remote Config fetch failed", it)
+                showScreen(isCompose = false, isUpdateDialog = false, minOsVersion = 0)
+            }
         }
     }
-}
 
-@Composable
-fun LauncherScreen() {
-    val context = LocalContext.current
+    private fun showScreen(isCompose: Boolean, isUpdateDialog: Boolean, minOsVersion: Long) {
+        val isObjectDetection = Build.VERSION.SDK_INT >= minOsVersion
+        val intent = if (isCompose) {
+            Intent(this, MainComposeActivity::class.java)
+        } else {
+            Intent(this, MainActivity::class.java)
+        }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(onClick = {
-            val intent = Intent(context, MainActivity::class.java)
-            context.startActivity(intent)
-        }) {
-            Text(stringResource(R.string.button_xml_activity))
-        }
-        Button(onClick = {
-            val intent = Intent(context, MainComposeActivity::class.java)
-            context.startActivity(intent)
-        }) {
-            Text(stringResource(R.string.button_compose_activity))
-        }
+        intent.putExtra(IS_UPDATE_DIALOG, isUpdateDialog)
+        intent.putExtra(IS_OBJECT_DETECTION, isObjectDetection)
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "673395781352",
+    "project_id": "object-detection-bde60",
+    "storage_bucket": "object-detection-bde60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673395781352:android:7865ee8ae14a958a0da35d",
+        "android_client_info": {
+          "package_name": "com.example.objectdetection"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdRt0tPmT8Z6GftM6HiqhLT98cpn93EeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,7 +18,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.objectdetection.data.PhotoUI
+import com.example.objectdetection.data.RemoteConfigData
 import com.example.objectdetection.data.toUIModel
+import com.example.objectdetection.repository.RemoteConfigRepository
 import com.example.objectdetection.repository.UnsplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,6 +34,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val unsplashRepository: UnsplashRepository,
+    private val remoteConfigRepository: RemoteConfigRepository,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
     companion object {
@@ -57,6 +60,9 @@ class MainViewModel @Inject constructor(
 
     private val objectDetector: ObjectDetector
 
+    private val _remoteConfigState = MutableLiveData<Result<RemoteConfigData>?>()
+    val remoteConfigState: LiveData<Result<RemoteConfigData>?> get() = _remoteConfigState
+
     init {
         val options = ObjectDetector.ObjectDetectorOptions.builder()
             .setMaxResults(MAX_RESULT)
@@ -64,6 +70,13 @@ class MainViewModel @Inject constructor(
             .build()
 
         objectDetector = ObjectDetector.createFromFileAndOptions(context, MODEL_PATH, options)
+    }
+
+    fun fetchRemoteConfig() {
+        viewModelScope.launch {
+            val result = remoteConfigRepository.fetchRemoteConfig()
+            _remoteConfigState.value = result
+        }
     }
 
     fun searchPhotos(query: String) {
