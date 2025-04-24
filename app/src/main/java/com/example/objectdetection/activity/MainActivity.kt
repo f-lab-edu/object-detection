@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             showUpdateDialog()
         }
 
-        adapter = ImageListAdapter(emptyList()) { photoList, position ->
+        adapter = ImageListAdapter { photoList, position ->
             val fragment = DetailViewPagerFragment.newInstance(photoList, position, isObjectDetection)
             setFragment(fragment)
         }
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.photos.observe(this) { photos ->
             photos?.let {
-                adapter.updateData(photos)
+                adapter.submitList(photos)
             }
         }
 
